@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbfbdjirx3slq"]
+
+[ext_resource type="Texture2D" uid="uid://dxdiq25368g" path="res://Tutorial.png" id="1_c7xb7"]
+[ext_resource type="Script" path="res://canvas_layer.gd" id="1_q1sij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pml63"]
+atlas = ExtResource("1_c7xb7")
+region = Rect2(0, 0, 1161, 651)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_88pcn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pml63")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_q1sij")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(577, 330)
+sprite_frames = SubResource("SpriteFrames_88pcn")
+
+[node name="back" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[connection signal="pressed" from="Control/back" to="." method="_on_back_pressed"]

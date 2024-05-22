@@ -1,0 +1,162 @@
+[gd_scene load_steps=11 format=3 uid="uid://w5okoqe747gt"]
+
+[ext_resource type="Texture2D" uid="uid://chgxxtb67fdw0" path="res://Pew pew.png" id="1_5jcp0"]
+[ext_resource type="Script" path="res://player.gd" id="1_t2pou"]
+[ext_resource type="AudioStream" uid="uid://bwwblgdlohke" path="res://Water Gun Sound Effect.mp3" id="2_18t18"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fgh3r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvfv1"]
+atlas = ExtResource("1_5jcp0")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo0oh"]
+atlas = ExtResource("1_5jcp0")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgqur"]
+atlas = ExtResource("1_5jcp0")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqonm"]
+atlas = ExtResource("1_5jcp0")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eya7x"]
+atlas = ExtResource("1_5jcp0")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vjlha"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvfv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo0oh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgqur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqonm")
+}],
+"loop": false,
+"name": &"Shoot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eya7x")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597522, 0)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_t2pou")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_fgh3r")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -1000)
+collision_mask = 3
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GunBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_vertical = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/GunBase"]
+position = Vector2(773, 518)
+scale = Vector2(0.517578, 0.517578)
+sprite_frames = SubResource("SpriteFrames_vjlha")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Crosshair" type="ColorRect" parent="CanvasLayer/GunBase"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 14.325
+anchor_top = 7.8
+anchor_right = 14.325
+anchor_bottom = 7.8
+offset_left = -4.0
+offset_top = 4.0
+offset_right = 10.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.360784)
+
+[node name="DeathScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -30.0
+offset_right = 62.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -30.0
+offset_right = 31.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You fell!"
+
+[node name="Button" type="Button" parent="CanvasLayer/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -1.0
+offset_right = 31.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_18t18")
+volume_db = -14.054
+bus = &"SFX"

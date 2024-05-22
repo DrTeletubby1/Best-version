@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://diji337aoi107"]
+
+[ext_resource type="Script" path="res://Score.gd" id="1_kf3cm"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 542.0
+
+[node name="Button" type="Button" parent="."]
+offset_left = 318.0
+offset_top = 176.0
+offset_right = 878.0
+offset_bottom = 369.0
+
+[node name="Score" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_kf3cm")
+
+[connection signal="pressed" from="Button" to="Score" method="_on_button_pressed"]

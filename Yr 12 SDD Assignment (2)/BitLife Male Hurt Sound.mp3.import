@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ba65cr2c46uy0"
+path="res://.godot/imported/BitLife Male Hurt Sound.mp3-b1ac9a8858567b7e901733b6fd66a4a3.mp3str"
+
+[deps]
+
+source_file="res://BitLife Male Hurt Sound.mp3"
+dest_files=["res://.godot/imported/BitLife Male Hurt Sound.mp3-b1ac9a8858567b7e901733b6fd66a4a3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
